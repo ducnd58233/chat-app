@@ -6,11 +6,15 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import helmet from 'helmet'
 import morgan from 'morgan'
-import { chats } from './data/data.js'
+import connectMongoDB from './config/mongodb.js'
+
+import { notFound, errorHandler } from './middleware/errorMiddleware.js'
+
+import userRoutes from './routes/userRoutes.js'
 
 dotenv.config()
-
-const PORT = process.env.PORT || 8080
+connectMongoDB()
+const PORT = process.env.PORT || 9000
 const app = express()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -27,21 +31,15 @@ app.use(
     : morgan('dev')
 )
 app.use(cors())
-app.use(express.json())
+app.use(express.json()) // accept json data
 
 app.get('/', (req, res) => {
   res.send('API is Running')
 })
 
-app.get('/api/chat', (req, res) => {
-  res.send(chats)
-})
-
-app.get('/api/chat/:id', (req, res) => {
-  const singleChat = chats.find((c) => c._id === req.params.id)
-  res.send(singleChat)
-})
-
+app.use('/api/user', userRoutes)
+app.use(notFound)
+app.use(errorHandler)
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port: ${PORT}`)

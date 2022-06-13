@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8080/api",
+  "proxy": "http://localhost:9000/api",
   "dependencies": {
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.3",
