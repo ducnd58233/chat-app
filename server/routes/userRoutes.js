@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import { protect } from '../middleware/authMiddleware.js'
 import {
   registerUser,
   authUser,
@@ -11,6 +12,6 @@ router.post('/login', authUser)
 
 router.post('/register', registerUser)
 
-router.get('/', allUsers)
+router.get('/', protect, allUsers)
 
 export default router

@@ -11,6 +11,7 @@ import connectMongoDB from './config/mongodb.js'
 import { notFound, errorHandler } from './middleware/errorMiddleware.js'
 
 import userRoutes from './routes/userRoutes.js'
+import chatRoutes from './routes/chatRoutes.js'
 
 dotenv.config()
 connectMongoDB()
@@ -38,6 +39,7 @@ app.get('/', (req, res) => {
 })
 
 app.use('/api/user', userRoutes)
+app.use('/api/chat', chatRoutes)
 app.use(notFound)
 app.use(errorHandler)
 
