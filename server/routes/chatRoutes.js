@@ -17,9 +17,9 @@ router.get('/', protect, fetchChats)
 
 router.post('/group', protect, createGroupChat)
 
-router.put('/group/remove', removeFromGroup)
+router.put('/group/remove', protect, removeFromGroup)
 
-router.put('/group/add', addToGroup)
+router.put('/group/add', protect, addToGroup)
 
 router.put('/rename', protect, renameGroup)
 
